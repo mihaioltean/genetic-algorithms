@@ -11,7 +11,7 @@
 // MIT License
 
 // compiled with Visual Studio 2013 Express Edition
-// last modified on: 2016.06.01
+// last modified on: 2017.02.04
 
 //--------------------------------------------------------------------
 #include <stdio.h>
@@ -28,13 +28,15 @@ void generate_random(b_chromosome c, int num_dims, int num_bits_per_dimension)
 {
 	// num_dims is the number of dimensions of the function to be optimized
 	// min_x, max_x is the range for variables
-	for (int i = 0; i < num_dims * num_bits_per_dimension; i++)
+	int _length = num_dims * num_bits_per_dimension;
+	for (int i = 0; i < _length; i++)
 		c.x[i] = rand() % 2;
 }
 //--------------------------------------------------------------------
 void copy_individual(b_chromosome *dest, b_chromosome source, int num_dims, int num_bits_per_dimension)
 {
-	for (int i = 0; i < num_dims; i++)
+	int _length = num_dims * num_bits_per_dimension;
+	for (int i = 0; i < _length; i++)
 		dest->x[i] = source.x[i];
 	dest->fitness = source.fitness;
 }
@@ -73,8 +75,8 @@ void mutation(b_chromosome c, int num_dims, int num_bits_per_dimension, double p
 {
 	// mutate each symbol with the same pm probability
 
-	for (int i = 0; i < num_dims * num_bits_per_dimension; i++) {
-
+	int _length = num_dims * num_bits_per_dimension;
+	for (int i = 0; i < _length; i++){
 		double p = rand() / (double)RAND_MAX;
 		if (p < pm)
 			c.x[i] = 1 - c.x[i];
@@ -102,7 +104,8 @@ void uniform_crossover(b_chromosome parent1, b_chromosome parent2, b_chromosome 
 	// uniform crossover can also be used
 	// for each gene we decide randomly where it goes
 	// (to the first or second offspring)
-	for (int i = 0; i < num_dims * num_bits_per_dimension; i++) {
+	int _length = num_dims * num_bits_per_dimension;
+	for (int i = 0; i < _length; i++){
 		if (rand() % 2) {// flip
 			offspring1.x[i] = parent2.x[i];
 			offspring2.x[i] = parent1.x[i];
@@ -227,15 +230,15 @@ int main(void)
 	int pop_size = 100;    // the number of individuals in population 
 	// must be an even number
 	int num_gens = 100;   // the number of generations
-	double pm = 0.02;      // mutation probability
+	double pm = 0.03;      // mutation probability
 	double pcross = 0.9;  // crossover probability
 
 
-	int num_dims = 2;  // number of dimensions of the function to be optimized
+	int num_dims = 5;  // number of dimensions of the function to be optimized
 	double min_x = -10;  // definition domain for functions
 	double max_x = 10;
 
-	int num_bits_per_dimension = 20; // 10 bits precision
+	int num_bits_per_dimension = 30; // 10 bits precision
 
 	srand(0);
 
