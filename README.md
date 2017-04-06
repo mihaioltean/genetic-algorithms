@@ -12,6 +12,7 @@ ga_binary_multi_criteria_opt.cpp - Genetic algorithm with binary encoding for mu
 
 ## Contact
 
+Oltean Mihai
 mihai.oltean@gmail.com
 
 www.tcreate.org
